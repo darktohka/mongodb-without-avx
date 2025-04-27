@@ -1,4 +1,4 @@
-FROM debian:11 as build
+FROM debian:12 as build
 
 RUN apt update -y && apt install -y build-essential \
         libcurl4-openssl-dev \
@@ -9,7 +9,7 @@ RUN apt update -y && apt install -y build-essential \
         curl \
     && rm -rf /var/lib/apt/lists/*
 
-ARG MONGO_VERSION=6.2.1
+ARG MONGO_VERSION=8.0.8
 
 RUN mkdir /src && \
     curl -o /tmp/mongo.tar.gz -L "https://github.com/mongodb/mongo/archive/refs/tags/r${MONGO_VERSION}.tar.gz" && \
@@ -33,7 +33,7 @@ RUN export GIT_PYTHON_REFRESH=quiet && \
     strip --strip-debug /install/bin/mongos && \
     rm -rf build
 
-FROM debian:11
+FROM debian:12
 
 RUN apt update -y && \
     apt install -y libcurl4 && \
