@@ -1,4 +1,4 @@
-FROM debian:12 as build
+FROM debian:12-slim as build
 
 RUN apt update -y && apt install -y build-essential \
         libcurl4-openssl-dev \
@@ -33,7 +33,7 @@ RUN export GIT_PYTHON_REFRESH=quiet && \
     strip --strip-debug /install/bin/mongos && \
     rm -rf build
 
-FROM debian:12
+FROM debian:12-slim
 
 RUN apt update -y && \
     apt install -y libcurl4 && \
