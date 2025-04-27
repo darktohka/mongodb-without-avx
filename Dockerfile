@@ -24,8 +24,8 @@ RUN patch -p1 < /o2_patch.diff
 ARG NUM_JOBS=
 
 RUN export GIT_PYTHON_REFRESH=quiet && \
-    python3 -m pip install --break-system-packages requirements_parser && \
-    python3 -m pip install --break-system-packages -r etc/pip/compile-requirements.txt && \
+    python3 -m pip install --break-system-packages poetry && \
+    python3 -m poetry install --sync && \
     if [ "${NUM_JOBS}" -gt 0 ]; then export JOBS_ARG="-j ${NUM_JOBS}"; fi && \
     python3 buildscripts/scons.py install-servers MONGO_VERSION="${MONGO_VERSION}" --release --disable-warnings-as-errors ${JOBS_ARG} && \
     mv build/install /install && \
